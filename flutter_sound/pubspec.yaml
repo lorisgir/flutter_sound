@@ -23,7 +23,7 @@ dependencies:
   flutter_sound_web:
     git:
       url: https://github.com/lorisgir/flutter_sound_web
-      ref: wasm
+      ref: main
 #    path: ../flutter_sound_web # Flutter Sound Dir
 # ============================================================================
 
