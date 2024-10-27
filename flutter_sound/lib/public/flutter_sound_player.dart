@@ -22,11 +22,9 @@ library player;
 
 import 'dart:async';
 import 'dart:core';
-import 'dart:io';
-import 'dart:io' show Platform;
 import 'dart:typed_data' show Uint8List;
 
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter_sound_platform_interface/flutter_sound_player_platform_interface.dart';
 import 'package:logger/logger.dart' show Level, Logger;
 import 'package:path_provider/path_provider.dart';
@@ -956,7 +954,7 @@ class FlutterSoundPlayer implements FlutterSoundPlayerCallback {
     _foodStreamController = StreamController();
     _foodStreamSubscription = _foodStreamController!.stream.listen((food) {
       _foodStreamSubscription!.pause(food.exec(this));
-      if (Platform.isAndroid && !_waitForFood) {
+      if (defaultTargetPlatform == Foundation.TargetPlatform.android && !_waitForFood) {
         audioPlayerFinished(PlayerState.isPaused.index);
       }
     });
@@ -1357,7 +1355,7 @@ class FlutterSoundPlayer implements FlutterSoundPlayerCallback {
     }
     if (kIsWeb) {
       return null;
-    } else if (Platform.isIOS) {
+    } else if (defaultTargetPlatform == Foundation.TargetPlatform.iOS) {
       var s = await FlutterSoundPlayerPlatform.instance.getResourcePath(this);
       return s;
     } else {

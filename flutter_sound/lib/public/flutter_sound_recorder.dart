@@ -30,9 +30,8 @@ import 'package:path/path.dart' as p;
 import 'package:synchronized/synchronized.dart';
 import 'package:flutter/foundation.dart' as Foundation;
 import '../flutter_sound.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show defaultTargetPlatform, kIsWeb;
 import 'package:flutter/src/services/platform_channel.dart';
-import 'dart:io' show Platform;
 
 /// A Recorder is an object that can playback from various sources.
 ///
@@ -564,8 +563,8 @@ class FlutterSoundRecorder implements FlutterSoundRecorderCallback {
             toStreamFloat32 != null ||
             toStreamInt16 != null) &&
         (!kIsWeb) &&
-        Platform
-            .isIOS) // This hack is just to have recorder to stream working correctly.
+        defaultTargetPlatform == Foundation.TargetPlatform
+            .iOS) // This hack is just to have recorder to stream working correctly.
     {
       FlutterSoundPlayer player = FlutterSoundPlayer();
       await player.openPlayer();
